@@ -1,49 +1,61 @@
-#include "../include/utils.h"
+#include "utils.h"
 
-int switch_to_file() {
-    fflush(stdout);
-    /* Get file descriptor, associated with original stdout */
-    int descriptor_stdout = fileno(stdout);
-    if (descriptor_stdout == -1) {
-        perror("fileno");
-        return -1;
-    }
-    /* Get copy of file descriptor, associated with original stdout */
-    int dup_descriptor_stdout = dup(descriptor_stdout);
-    if (dup_descriptor_stdout == -1) {
-        perror("dup");
-        return -1;
-    }
-    /* Close original stdout, open "custom_out.txt" stream and associate stdout with it: */
-    FILE *file = freopen("custom_out.txt", "a+", stdout);
-    if (!file) {
-        perror("freopen");
-        if (close(dup_descriptor_stdout)) {
-            perror("close");
-        }
-        return -1;
-    }
-    return dup_descriptor_stdout;
+const std::string OUT_STREAM_FILE = "custom_out.txt";
+const std::string IN_STREAM_FILE = "custom_in.txt";
+
+void IO_TEST::SetUp() {
+    Test::SetUp();
+    _originalOutDescriptor = IO_TEST::switchStreamToFile(OUT_STREAM_FILE, stdout);
+    _originalInDescriptor = IO_TEST::switchStreamToFile(IN_STREAM_FILE, stdin);
 }
 
-int switch_to_terminal(int original_stdout_descriptor) {
-    if (original_stdout_descriptor < 0) { return -1; }
-    fflush(stdout);
-    /* Get file descriptor, associated with current stdout */
-    int descriptor_stdout = fileno(stdout);
-    if (descriptor_stdout == -1) {
-        perror("fileno");
-        return -1;
+void IO_TEST::TearDown() {
+    Test::TearDown();
+    IO_TEST::switchBackStream(_originalOutDescriptor, stdout);
+    IO_TEST::switchBackStream(_originalInDescriptor, stdin);
+}
+
+int IO_TEST::switchStreamToFile(const std::string &file, FILE *stream) {
+    fflush(stream);
+    /* Get file descriptor, associated with original stdout */
+    int currentStreamDescriptor = fileno(stream);
+    if (currentStreamDescriptor == -1) {
+        throw std::runtime_error("fileno");
     }
-    /* Close the current file descriptor associated with stdout and
+    /* Get copy of file descriptor, associated with original stream */
+    int originalDescriptor = dup(currentStreamDescriptor);
+    if (originalDescriptor == -1) {
+        throw std::runtime_error("dup");
+    }
+    /* Close original stdout, open custom stream and associate stream with it: */
+    FILE *filePtr = freopen(file.c_str(), "w", stream);
+    if (!filePtr) {
+        if (close(originalDescriptor)) {
+            throw std::runtime_error("close + freopen");
+        }
+        throw std::runtime_error("freopen");
+    }
+    return currentStreamDescriptor;
+}
+
+void IO_TEST::switchBackStream(int originalDescriptor, FILE *stream) {
+    fflush(stream);
+    /* Get file descriptor, associated with current stream */
+    int currentStreamDescriptor = fileno(stream);
+    if (currentStreamDescriptor == -1) {
+        throw std::runtime_error("fileno");
+    }
+    /* Close the current descriptor associated with stream and
      * associate it with the original descriptor */
-    if (dup2(original_stdout_descriptor, descriptor_stdout) == -1) {
-        perror("dup2");
-        return 1;
+    if (dup2(originalDescriptor, currentStreamDescriptor) == -1) {
+        throw std::runtime_error("dup2");
     }
-    if (close(original_stdout_descriptor) == -1) {
-        perror("close");
-        return 1;
+    if (close(originalDescriptor) == -1) {
+        throw std::runtime_error("close");
     }
-    return 0;
+}
+
+void IO_TEST::flush() {
+    fflush(stdout);
+    fflush(stdin);
 }

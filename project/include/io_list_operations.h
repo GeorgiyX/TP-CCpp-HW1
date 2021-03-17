@@ -1,7 +1,7 @@
 #ifndef TP_HW1_IO_LIST_OPERATIONS_H
 #define TP_HW1_IO_LIST_OPERATIONS_H
 
-#include "list_managment.h"
+#include "list_management.h"
 
 /**
  * Creates a node and reads the country parameters to it from stdin

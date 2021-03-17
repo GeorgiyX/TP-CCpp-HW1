@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "list_managment.h"
+#include "list_management.h"
 
 country_node *create_node() {
     return calloc(1, sizeof(country_node));

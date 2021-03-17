@@ -1,9 +1,5 @@
 #include <stdio.h>
-#include <unistd.h>
 #include "io_list_operations.h"
-
-
-
 
 int main() {
     country_node *head = get_ordered_list();
