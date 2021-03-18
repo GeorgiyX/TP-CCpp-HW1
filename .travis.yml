@@ -1,8 +1,7 @@
 dist: bionic
 sudo: required
 language: cpp
-os:
-  - linux
+os: linux
 
 install:
   - CWD=$PWD
@@ -25,7 +24,7 @@ script:
   - cd build
   - cmake ..
   - cmake --build .
-  - mv ./TP-HW1 ./project/testing/TP-TESTING-HW1 ../ && cd ..
-  - valgrind --tool=memcheck ./TP-HW1 < ./project/testing/data/case1/in.txt
-  - valgrind --tool=memcheck ./TP-TESTING-HW1 ./project/testing/data 55 --gtest_filter="MANAGEMENT_TEST.*"
+  - valgrind --tool=memcheck ./TP-HW1 < $CWD/project/testing/data/case1/in.txt
+  - cd ./project/testing
+  - valgrind --tool=memcheck ./TP-TESTING-HW1 $CWD/project/testing/data 55 --gtest_filter="MANAGEMENT_TEST.*"
   - bash <(curl -s https://codecov.io/bash)
