@@ -6,9 +6,9 @@ os:
 compiler:
   - gcc
 install:
+  - echo $PWD
   - source ./ci/install.sh
-  - unzip ./ci/cpplint.zip
-  - mv ./cpplint.py ./ci
+  - cd ./ci && unzip cpplint.zip && cd ..
 
 before_script:
   - source ./ci/run.sh
