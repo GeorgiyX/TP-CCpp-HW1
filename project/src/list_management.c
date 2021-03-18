@@ -33,11 +33,8 @@ int insert_node(country_node **head, country_node *insertable) {
 void free_list(country_node *head) {
     country_node *node_to_free = NULL;
     while (head) {
-        if (head->data.country_name) {
-            free(head->data.country_name);
-        }
         node_to_free = head;
         head = head->next;
-        free(node_to_free);
+        free_node(node_to_free);
     }
 }

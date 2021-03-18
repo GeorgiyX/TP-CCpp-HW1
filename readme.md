@@ -1,5 +1,7 @@
 ## Что это
 Это репозиторий ДЗ#1 по курсу "Углублённое программирование на C/С++".
+
+**Статусы:**[![Build Status](https://travis-ci.org/GeorgiyX/TP-CCpp-HW1.svg?branch=dev-homework)](https://travis-ci.org/GeorgiyX/TP-CCpp-HW1)  [![codecov](https://codecov.io/gh/GeorgiyX/TP-CCpp-HW1/branch/dev-homework/graph/badge.svg)](https://codecov.io/gh/GeorgiyX/TP-CCpp-HW1)
 ### Условия задания (Вариант #21)
 
 Создать структуру для хранения информации о стране мира: площади ее территории (кв. км), количестве жителей и столице. Составить с ее использованием программу вывода информации о странах с упорядочением по росту плотности населения.

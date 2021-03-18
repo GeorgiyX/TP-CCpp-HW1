@@ -34,6 +34,17 @@ TEST(MANAGEMENT_TEST, FREE_NODE) {
     SUCCEED();
 }
 
+TEST(MANAGEMENT_TEST, FREE_LIST) {
+    auto *nodeFirst = create_node();
+    auto *nodeSecond = create_node();
+    if (!nodeFirst || !nodeSecond) {
+        throw std::runtime_error("no memory");
+    }
+    nodeFirst->next = nodeSecond;
+    free_list(nodeFirst);
+    SUCCEED();
+}
+
 TEST(MANAGEMENT_TEST, INSERT_NODE_1) {
     country_node *head = nullptr;
     auto node = std::make_shared<country_node>();
