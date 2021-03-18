@@ -41,3 +41,13 @@ void free_list(country_node *head) {
         free(node_to_free);
     }
 }
+
+int compareByDensity(country_node *lhs, country_node *rhs) {
+    if (!lhs || !rhs || !lhs->data.square || !rhs->data.square) {
+        return -1;
+    }
+    size_t lhsDensity = lhs->data.population / lhs->data.square;
+    size_t rhsDensity = rhs->data.population / rhs->data.square;
+
+    return lhsDensity >= rhsDensity;
+}

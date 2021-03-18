@@ -40,4 +40,6 @@ int insert_node(country_node **head, country_node *insertable);
  */
 void free_list(country_node *head);
 
+int compareByDensity(country_node *lhs, country_node *rhs);
+
 #endif  // TP_CCPP_HW1_PROJECT_INCLUDE_LIST_MANAGEMENT_H_

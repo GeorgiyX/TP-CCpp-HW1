@@ -10,7 +10,7 @@ country_node *read_country_node() {
         return NULL;
     }
     if (scanf("%zd %zd %ms", &node->data.square, &node->data.population, &node->data.country_name)
-        != PARAMETERS_COUNT) {
+        != PARAMETERS_COUNT || !node->data.square || !node->data.population) {
         free_node(node);
         return NULL;
     }
