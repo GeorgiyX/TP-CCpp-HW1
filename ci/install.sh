@@ -8,4 +8,4 @@ sudo apt-get install --yes cppcheck
 sudo apt-get install --yes curl
 export CODECOV_TOKEN="f595c59d-c930-48e3-8c8c-dbff8bd00453"
 cd /usr/src/gtest && sudo mkdir build && cd build 
-sudo cmake .. && sudo make && sudo cp ./lib/*.a /usr/lib
+sudo cmake .. && sudo make && sudo cp *.a /usr/lib
