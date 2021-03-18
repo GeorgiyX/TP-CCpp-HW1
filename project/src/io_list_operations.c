@@ -14,15 +14,17 @@ country_node *read_country_node() {
         free_node(node);
         return NULL;
     }
+    node->data.density = node->data.population / node->data.square;
     return node;
 }
 
 void print_list(country_node *head) {
     while (head) {
         if (head->data.country_name) {
-            printf("%zd %zd %s\n", head->data.square, head->data.population, head->data.country_name);
+            printf("%zd %zd %zd %s\n", head->data.square, head->data.population,
+                   head->data.density, head->data.country_name);
         } else {
-            printf("%zd %zd error_country_name\n", head->data.square, head->data.population);
+            printf("%zd %zd %zd error_country_name\n", head->data.square, head->data.population, head->data.density);
         }
         head = head->next;
     }

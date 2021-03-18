@@ -8,6 +8,7 @@ typedef struct country_node {
     struct {
         size_t square;
         size_t population;
+        size_t density;
         char *country_name;
     } data;
     struct country_node *next;
@@ -39,7 +40,5 @@ int insert_node(country_node **head, country_node *insertable);
  * @param head - pointer to the first item in the list. If it is null, then the function does nothing.
  */
 void free_list(country_node *head);
-
-int compareByDensity(country_node *lhs, country_node *rhs);
 
 #endif  // TP_CCPP_HW1_PROJECT_INCLUDE_LIST_MANAGEMENT_H_
