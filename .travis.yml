@@ -6,9 +6,9 @@ os:
 compiler:
   - gcc
 install:
-  - echo $PWD
+  - CWD=$PWD
   - source ./ci/install.sh
-  - cd ./ci && unzip cpplint.zip && cd ..
+  - cd $CWD/ci && unzip cpplint.zip && cd ..
 
 before_script:
   - source ./ci/run.sh
