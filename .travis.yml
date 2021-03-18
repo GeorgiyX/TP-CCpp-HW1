@@ -7,9 +7,8 @@ compiler:
   - gcc
 install:
   - source ./ci/install.sh
-  - wget https://github.com/cpplint/cpplint/archive/develop.zip
-  - unzip develop.zip
-  - mv ./cpplint-develop/cpplint.py ./ci
+  - unzip ./ci/cpplint.zip
+  - mv ./cpplint.py ./ci
 
 before_script:
   - source ./ci/run.sh
