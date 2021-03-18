@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <random>
+#include <memory>
 #include "utils.h"
 
 extern "C" {
