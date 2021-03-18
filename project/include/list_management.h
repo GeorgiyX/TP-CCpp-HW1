@@ -1,5 +1,5 @@
-#ifndef TP_HW1_LIST_MANAGEMENT
-#define TP_HW1_LIST_MANAGEMENT
+#ifndef TP_CCPP_HW1_PROJECT_INCLUDE_LIST_MANAGEMENT_H_
+#define TP_CCPP_HW1_PROJECT_INCLUDE_LIST_MANAGEMENT_H_
 
 /**
  * A single-linked list node that stores country parameters and a pointer to the next element.
@@ -40,4 +40,4 @@ int insert_node(country_node **head, country_node *insertable);
  */
 void free_list(country_node *head);
 
-#endif  // TP_HW1_LIST_MANAGEMENT
+#endif  // TP_CCPP_HW1_PROJECT_INCLUDE_LIST_MANAGEMENT_H_

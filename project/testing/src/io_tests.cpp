@@ -10,25 +10,25 @@ const std::string ERROR_COUNTRY_NAME = "0 0 error_country_name\n";
 namespace fs = std::experimental::filesystem;
 
 TEST_F(IO_TEST, RRINT_ERROR_COUNTRY) {
-//    auto node = std::make_shared<country_node>();
-//    node->data.square = 0;
-//    node->data.population = 0;
-//    node->next = nullptr;
-//    node->data.country_name = nullptr;
-//    print_list(node.get());
+    auto node = std::make_shared<country_node>();
+    node->data.square = 0;
+    node->data.population = 0;
+    node->next = nullptr;
+    node->data.country_name = nullptr;
+    print_list(node.get());
 //    ASSERT_EQ(std::string(ERROR_COUNTRY_NAME), ERROR_COUNTRY_NAME);
 }
-//
-//TEST_F(IO_TEST, COMPLEX_TEST) {
-//    country_node *head = nullptr;
-//    for (auto &entity : fs::directory_iterator(TestConfig::testDataPath)) {
-//        setTestInput(entity / "in.txt");
-//        errno = 0;
-//        head = get_ordered_list();
+
+TEST_F(IO_TEST, COMPLEX_TEST) {
+    country_node *head = nullptr;
+    for (auto &entity : fs::directory_iterator(TestConfig::testDataPath)) {
+        setTestInput(entity / "in.txt");
+        errno = 0;
+        head = get_ordered_list();
 //        ASSERT_TRUE(!head && (errno == ENOMEM));
-//        print_list(head);
-//        free_list(head);
+        print_list(head);
+        free_list(head);
 //        ASSERT_EQ(getTestOutput(), file2string(entity / "out.txt"));
-//        clearTestOutput();
-//    }
-//}
+        clearTestOutput();
+    }
+}

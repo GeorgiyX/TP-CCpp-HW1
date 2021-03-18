@@ -2,3 +2,7 @@
 /cmake-*/
 .DS_Store
 /build/
+/*.txt
+/TP-TESTING-HW1
+*.py
+*.cfg

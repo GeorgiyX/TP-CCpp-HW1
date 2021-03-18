@@ -8,5 +8,5 @@ add_executable(${EXE_NAME} src/main.cpp ${HW_SRC}
                src/io_tests.cpp src/utils.cpp src/managements_tests.cpp)
 target_link_libraries(${EXE_NAME} ${GTEST_BOTH_LIBRARIES} pthread stdc++fs)
 
-add_test(NAME ManageTest COMMAND ${EXE_NAME} ./data ${TEST_SEED} --gtest_filter=IO_TEST.*)
-add_test(NAME IOTest COMMAND ${EXE_NAME} ./data ${TEST_SEED} --gtest_filter=MANAGEMENT_TEST.*)
+#add_test(NAME IOTest COMMAND ${EXE_NAME} ./data ${TEST_SEED} --gtest_filter=IO_TEST.*)
+add_test(NAME ManageTest COMMAND ${EXE_NAME} ./data ${TEST_SEED} --gtest_filter=MANAGEMENT_TEST.*)

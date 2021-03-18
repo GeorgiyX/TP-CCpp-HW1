@@ -17,19 +17,19 @@ std::string file2string(const std::string &path) {
 
 void IO_TEST::SetUp() {
     Test::SetUp();
-    _originalOutDescriptor = IO_TEST::switchStreamToFile(OUT_STREAM_FILE, stdout, posOut);
-    _originalInDescriptor = IO_TEST::switchStreamToFile(IN_STREAM_FILE, stdin, posIn);
+    _originalOutDescriptor = switchStreamToFile(OUT_STREAM_FILE, stdout, posOut);
+    _originalInDescriptor = switchStreamToFile(IN_STREAM_FILE, stdin, posIn);
 }
 
 void IO_TEST::TearDown() {
     Test::TearDown();
-    IO_TEST::switchBackStream(_originalOutDescriptor, stdout);
-    IO_TEST::switchBackStream(_originalInDescriptor, stdin);
+    switchBackStream(_originalOutDescriptor, stdout, posOut);
+    switchBackStream(_originalInDescriptor, stdin, posIn);
 }
 
-int IO_TEST::switchStreamToFile(const std::string &file, FILE *stream, fpos_t &pos) {
-    fflush(stream);
+int IO_TEST::switchStreamToFile(const std::string &file, FILE *stream, fpos_t &) {
 
+    fflush(stream);
     /* Get file descriptor, associated with original stdout */
     int currentStreamDescriptor = fileno(stream);
     if (currentStreamDescriptor == -1) {
@@ -48,11 +48,15 @@ int IO_TEST::switchStreamToFile(const std::string &file, FILE *stream, fpos_t &p
         }
         throw std::runtime_error("freopen");
     }
+//    std::cerr << "switchStreamToFile" << std::endl;
     return currentStreamDescriptor;
 }
 
-void IO_TEST::switchBackStream(int originalDescriptor, FILE *stream, fpos_t &pos) {
-//    fflush(stream);
+void IO_TEST::switchBackStream(int originalDescriptor, FILE *stream, fpos_t &) {
+    if (originalDescriptor < 0) {
+        throw std::runtime_error("originalDescriptor");
+    }
+    fflush(stream);
     /* Get file descriptor, associated with current stream */
     int currentStreamDescriptor = fileno(stream);
     if (currentStreamDescriptor == -1) {
@@ -66,6 +70,7 @@ void IO_TEST::switchBackStream(int originalDescriptor, FILE *stream, fpos_t &pos
     if (close(originalDescriptor) == -1) {
         throw std::runtime_error("close");
     }
+//    std::cerr << "switchBackStream" << std::endl;
 }
 
 void IO_TEST::flush() {

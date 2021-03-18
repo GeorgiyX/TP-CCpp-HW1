@@ -14,14 +14,14 @@ public:
      * @param stream - redirected stream.
      * @return original descriptor of the redirected stream.
      */
-    static int switchStreamToFile(const std::string &file, FILE *stream, fpos_t &pos);
+    int switchStreamToFile(const std::string &file, FILE *stream, fpos_t &pos);
 
     /**
      * Binds the stream to the passed descriptor
      * @param originalDescriptor
      * @param stream
      */
-    static void switchBackStream(int originalDescriptor, FILE *stream, fpos_t &pos);
+    void switchBackStream(int originalDescriptor, FILE *stream, fpos_t &pos);
     void flush();
     std::string getTestOutput();
     /**

@@ -1,0 +1,24 @@
+dist: bionic
+sudo: required
+language: cpp
+os:
+  - linux
+compiler:
+  - gcc
+install:
+  - source ./ci/install.sh
+  - curl -O https://raw.githubusercontent.com/cpplint/cpplint/develop/cpplint.py
+  - mv cpplint.py ./ci
+
+before_script:
+  - source ./ci/run.sh
+
+script:
+  - mkdir build
+  - cd build
+  - cmake ..
+  - cmake --build .
+  - mv ./TP-HW1 ./project/testing/TP-TESTING-HW1 ../ && cd ..
+  - valgrind --tool=memcheck ./TP-HW1 < ./project/testing/data/case1/in.txt
+  - valgrind --tool=memcheck ./TP-TESTING-HW1 ./project/testing/data 55 --gtest_filter="MANAGEMENT_TEST.*"
+  - bash <(curl -s https://codecov.io/bash)

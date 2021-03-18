@@ -1,5 +1,5 @@
-#ifndef TP_HW1_IO_LIST_OPERATIONS_H
-#define TP_HW1_IO_LIST_OPERATIONS_H
+#ifndef TP_CCPP_HW1_PROJECT_INCLUDE_IO_LIST_OPERATIONS_H_
+#define TP_CCPP_HW1_PROJECT_INCLUDE_IO_LIST_OPERATIONS_H_
 
 #include "list_management.h"
 
@@ -22,4 +22,4 @@ void print_list(country_node *head);
  */
 country_node *get_ordered_list();
 
-#endif  // TP_HW1_IO_LIST_OPERATIONS_H
+#endif  // TP_CCPP_HW1_PROJECT_INCLUDE_IO_LIST_OPERATIONS_H_

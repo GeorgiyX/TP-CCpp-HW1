@@ -2,7 +2,7 @@
 #include "io_list_operations.h"
 
 /* Number of parameters in the country_node structure */
-const size_t PARAMETERS_COUNT = 3;
+const int PARAMETERS_COUNT = 3;
 
 country_node *read_country_node() {
     country_node *node = create_node();

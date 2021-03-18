@@ -4,7 +4,6 @@
 
 extern "C" {
 #include "list_management.h"
-#include "io_list_operations.h"
 }
 
 const size_t LIST_LENGTH = 250;
@@ -22,13 +21,13 @@ TEST(MANAGEMENT_TEST, FREE_NODE) {
     if (!nodeFirst || !nodeSecond) {
         throw std::runtime_error("no memory");
     }
-    free(nullptr);
-    free(nodeFirst);
+    free_node(nullptr);
+    free_node(nodeFirst);
     nodeSecond->data.country_name = static_cast<char *>(malloc(1));
     if (!nodeSecond->data.country_name) {
         throw std::runtime_error("no memory");
     }
-    free(nodeSecond);
+    free_node(nodeSecond);
     SUCCEED();
 }
 
@@ -44,7 +43,7 @@ TEST(MANAGEMENT_TEST, INSERT_NODE_1) {
 }
 
 TEST(MANAGEMENT_TEST, INSERT_NODE_2) {
-    std::vector<country_node> nodes(LIST_LENGTH, {0,0, nullptr, nullptr });
+    std::vector<country_node> nodes(LIST_LENGTH, {{0,0, nullptr}, nullptr });
     country_node *head = nullptr;
     for(auto &node : nodes) {
         node.data.population = random();
