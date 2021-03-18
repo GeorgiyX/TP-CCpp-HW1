@@ -26,13 +26,13 @@ country_node *create_node();
 void free_node(country_node *node);
 
 /**
- * Adds new to the linked list before the first node greater than or equal to new.
- * If such a node is head (or the list is empty), then head will also be overwritten with new.
+ * Adds insertable to the linked list before the first node greater than or equal to insertable.
+ * If such a node is head (or the list is empty), then head will also be overwritten with insertable.
  * @param head - pointer to pointer the first item in the list.
- * @param new - pointer to the element to add.
+ * @param insertable - pointer to the element to add.
  * @return 0 if the node is added to the list or -1 otherwise
  */
-int insert_node(country_node **head, country_node *new);
+int insert_node(country_node **head, country_node *insertable);
 
 /**
  * Frees up the memory allocated for the list nodes.

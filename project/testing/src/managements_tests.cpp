@@ -4,18 +4,19 @@
 
 extern "C" {
 #include "list_management.h"
+#include "io_list_operations.h"
 }
 
-const size_t LIST_LENGTH = 100;
+const size_t LIST_LENGTH = 250;
 
-TEST(MANAGEMENT_TESTS, CREATE_NODE) {
+TEST(MANAGEMENT_TEST, CREATE_NODE) {
     errno = 0;
     auto *node = create_node();
     free(node);
-    ASSERT_TRUE(!node && (errno == ENOMEM));
+    ASSERT_TRUE(!node == (errno == ENOMEM));
 }
 
-TEST(MANAGEMENT_TESTS, FREE_NODE) {
+TEST(MANAGEMENT_TEST, FREE_NODE) {
     auto *nodeFirst = create_node();
     auto *nodeSecond = create_node();
     if (!nodeFirst || !nodeSecond) {
@@ -31,7 +32,7 @@ TEST(MANAGEMENT_TESTS, FREE_NODE) {
     SUCCEED();
 }
 
-TEST(MANAGEMENT_TESTS, INSERT_NODE_1) {
+TEST(MANAGEMENT_TEST, INSERT_NODE_1) {
     country_node *head = nullptr;
     auto node = std::make_shared<country_node>();
     node->next = nullptr;
@@ -42,15 +43,13 @@ TEST(MANAGEMENT_TESTS, INSERT_NODE_1) {
     ASSERT_EQ(head, node.get());
 }
 
-TEST(MANAGEMENT_TESTS, INSERT_NODE_2) {
+TEST(MANAGEMENT_TEST, INSERT_NODE_2) {
     std::vector<country_node> nodes(LIST_LENGTH, {0,0, nullptr, nullptr });
-    std::mt19937 random(TestConfig::testSeed);
     country_node *head = nullptr;
-
     for(auto &node : nodes) {
         node.data.population = random();
+        node.data.square = random();
         ASSERT_EQ(insert_node(&head, &node), 0);
-        std::cout << "node random: " << node.data.population << std::endl;
     }
     ASSERT_TRUE(head);
 

@@ -13,20 +13,20 @@ void free_node(country_node *node) {
     free(node);
 }
 
-int insert_node(country_node **head, country_node *new) {
-    if (!head || !new) { return -1; }
+int insert_node(country_node **head, country_node *insertable) {
+    if (!head || !insertable) { return -1; }
     country_node *previous = NULL;
     country_node *current = *head;
-    while (current && current->data.population < new->data.population) {
+    while (current && current->data.population < insertable->data.population) {
         previous = current;
         current = current->next;
     }
     if (previous) {
-        previous->next = new;
+        previous->next = insertable;
     } else {
-        *head = new;
+        *head = insertable;
     }
-    new->next = current;
+    insertable->next = current;
     return 0;
 }
 

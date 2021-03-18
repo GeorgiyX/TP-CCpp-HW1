@@ -14,21 +14,21 @@ public:
      * @param stream - redirected stream.
      * @return original descriptor of the redirected stream.
      */
-    static int switchStreamToFile(const std::string &file, FILE *stream);
+    static int switchStreamToFile(const std::string &file, FILE *stream, fpos_t &pos);
 
     /**
      * Binds the stream to the passed descriptor
      * @param originalDescriptor
      * @param stream
      */
-    static void switchBackStream(int originalDescriptor, FILE *stream);
+    static void switchBackStream(int originalDescriptor, FILE *stream, fpos_t &pos);
     void flush();
     std::string getTestOutput();
     /**
-     * Configures stdin to read the file from the passed path
-     * @param file - path to the new stdin content
+     * Configures stdin to read the filePath from the passed path
+     * @param filePath - path to the new stdin content
      */
-    void setTestInput(const std::string &file);
+    void setTestInput(const std::string &filePath);
     void clearTestOutput();
     void clearTestInput();
 
@@ -39,6 +39,8 @@ protected:
 private:
     int _originalOutDescriptor = -1;
     int _originalInDescriptor = -1;
+    fpos_t posOut;
+    fpos_t posIn;
 };
 
 struct TestConfig {
@@ -46,6 +48,6 @@ struct TestConfig {
     static std::string testDataPath;
 };
 
-std::string readFileToString(const std::string &path);
+std::string file2string(const std::string &path);
 
 #endif //TP_HW1_UTILS_H
