@@ -7,7 +7,7 @@ compiler:
   - gcc
 install:
   - source ./ci/install.sh
-  - curl -O https://raw.githubusercontent.com/cpplint/cpplint/develop/cpplint.py
+  - curl https://raw.githubusercontent.com/cpplint/cpplint/develop/cpplint.py > cpplint.py
   - mv cpplint.py ./ci
 
 before_script:
