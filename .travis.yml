@@ -4,10 +4,6 @@ language: cpp
 os:
   - linux
 
-compiler:
-  - gcc
-  - g++
-  
 install:
   - CWD=$PWD
   - source ./ci/install.sh
