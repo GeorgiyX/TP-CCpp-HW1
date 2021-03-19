@@ -8,7 +8,7 @@ typedef struct country_node {
     struct {
         size_t square;
         size_t population;
-        size_t density;
+        double density;
         char *country_name;
     } data;
     struct country_node *next;
@@ -40,5 +40,13 @@ int insert_node(country_node **head, country_node *insertable);
  * @param head - pointer to the first item in the list. If it is null, then the function does nothing.
  */
 void free_list(country_node *head);
+
+/**
+ * Implementation of the < comparison for double
+ * @param lhs
+ * @param rhs
+ * @return 0, if lhs and rhs are almost equal or lhs > rhs. Otherwise, 1
+ */
+int isLess(const double lhs, const double rhs);
 
 #endif  // TP_CCPP_HW1_PROJECT_INCLUDE_LIST_MANAGEMENT_H_

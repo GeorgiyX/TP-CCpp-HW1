@@ -5,11 +5,20 @@
 
 extern "C" {
 #include "list_management.h"
+#include "io_list_operations.h"
 }
 
 const size_t LIST_LENGTH = 250;
 const size_t MIN_RANDOM = 1;
 const size_t MAX_RANDOM = 1000;
+const size_t POPULATION_MULTIPLIER = 10;
+const double DOUBLE_1 = 5.000123;
+const double DOUBLE_2 = 5.00123;
+const double DOUBLE_SMALL_1 = 0.0000001111;
+const double DOUBLE_SMALL_2 = 0.0000003123;
+const double DOUBLE_BIG_1 = 100000000.00012;
+const double DOUBLE_BIG_2 = 100000000.000123;
+
 
 TEST(MANAGEMENT_TEST, CREATE_NODE) {
     errno = 0;
@@ -60,11 +69,13 @@ TEST(MANAGEMENT_TEST, INSERT_NODE_2) {
     std::vector<country_node> nodes(LIST_LENGTH, {{0, 0, 0, nullptr}, nullptr});
     country_node *head = nullptr;
     std::mt19937 gen(TestConfig::testSeed);
-    std::uniform_int_distribution<size_t> distribution(MIN_RANDOM, MAX_RANDOM);
+    std::uniform_int_distribution<size_t> distrPopulation(MIN_RANDOM, POPULATION_MULTIPLIER * MAX_RANDOM);
+    std::uniform_int_distribution<size_t> distrSquare(MIN_RANDOM, MAX_RANDOM);
+
     for (auto &node : nodes) {
-        node.data.population = distribution(gen);
-        node.data.square = distribution(gen);
-        node.data.density = node.data.population / node.data.square;
+        node.data.population = distrPopulation(gen);
+        node.data.square = distrSquare(gen);
+        node.data.density = ((double)node.data.population) / node.data.square;
         ASSERT_EQ(insert_node(&head, &node), 0);
     }
     ASSERT_TRUE(head);
@@ -75,4 +86,23 @@ TEST(MANAGEMENT_TEST, INSERT_NODE_2) {
         ASSERT_TRUE(previous->data.density <= current->data.density);
         current = current->next;
     }
+}
+
+TEST(MANAGEMENT_TEST, COMPARISON_EQUAL) {
+    ASSERT_EQ(isLess(DOUBLE_BIG_1, DOUBLE_BIG_1), 0);
+    ASSERT_EQ(isLess(DOUBLE_SMALL_1, DOUBLE_SMALL_1), 0);
+    ASSERT_EQ(isLess(DOUBLE_1, DOUBLE_1), 0);
+}
+
+TEST(MANAGEMENT_TEST, COMPARISON_LESS) {
+    ASSERT_EQ(isLess(DOUBLE_BIG_1, DOUBLE_BIG_2), 1);
+    ASSERT_EQ(isLess(DOUBLE_SMALL_1, DOUBLE_SMALL_2), 1);
+    ASSERT_EQ(isLess(DOUBLE_1, DOUBLE_2), 1);
+
+}
+
+TEST(MANAGEMENT_TEST, COMPARISON_GREATER) {
+    ASSERT_EQ(isLess(DOUBLE_BIG_2, DOUBLE_BIG_1), 0);
+    ASSERT_EQ(isLess(DOUBLE_SMALL_2, DOUBLE_SMALL_1), 0);
+    ASSERT_EQ(isLess(DOUBLE_2, DOUBLE_1), 0);
 }

@@ -17,18 +17,17 @@ std::string file2string(const std::string &path) {
 
 void IO_TEST::SetUp() {
     Test::SetUp();
-    _originalOutDescriptor = switchStreamToFile(OUT_STREAM_FILE, stdout, posOut);
-    _originalInDescriptor = switchStreamToFile(IN_STREAM_FILE, stdin, posIn);
+    _originalOutDescriptor = switchStreamToFile(OUT_STREAM_FILE, stdout);
+    _originalInDescriptor = switchStreamToFile(IN_STREAM_FILE, stdin);
 }
 
 void IO_TEST::TearDown() {
     Test::TearDown();
-    switchBackStream(_originalOutDescriptor, stdout, posOut);
-    switchBackStream(_originalInDescriptor, stdin, posIn);
+    switchBackStream(_originalOutDescriptor, stdout);
+    switchBackStream(_originalInDescriptor, stdin);
 }
 
-int IO_TEST::switchStreamToFile(const std::string &file, FILE *stream, fpos_t &) {
-
+int IO_TEST::switchStreamToFile(const std::string &file, FILE *stream) {
     fflush(stream);
     /* Get file descriptor, associated with original stdout */
     int currentStreamDescriptor = fileno(stream);
@@ -43,16 +42,16 @@ int IO_TEST::switchStreamToFile(const std::string &file, FILE *stream, fpos_t &)
     /* Close original stdout, open custom stream and associate stream with it: */
     FILE *filePtr = freopen(file.c_str(), "w", stream);
     if (!filePtr) {
+        perror("freopen");
         if (close(originalDescriptor)) {
             throw std::runtime_error("close + freopen");
         }
         throw std::runtime_error("freopen");
     }
-//    std::cerr << "switchStreamToFile" << std::endl;
-    return currentStreamDescriptor;
+    return originalDescriptor;
 }
 
-void IO_TEST::switchBackStream(int originalDescriptor, FILE *stream, fpos_t &) {
+void IO_TEST::switchBackStream(int originalDescriptor, FILE *stream) {
     if (originalDescriptor < 0) {
         throw std::runtime_error("originalDescriptor");
     }
@@ -70,7 +69,7 @@ void IO_TEST::switchBackStream(int originalDescriptor, FILE *stream, fpos_t &) {
     if (close(originalDescriptor) == -1) {
         throw std::runtime_error("close");
     }
-//    std::cerr << "switchBackStream" << std::endl;
+    clearerr(stream);
 }
 
 void IO_TEST::flush() {
@@ -88,12 +87,16 @@ void IO_TEST::setTestInput(const std::string &filePath) {
     std::ifstream in(filePath);
     std::fstream out(OUT_STREAM_FILE, std::ios::trunc | std::ios::out);
     if (!in || !out) {
+        perror("runtime_error(\"can't open file\")");
         throw  std::runtime_error("can't open file");
     }
     char ch = 0;
+    std::cerr << "Read file: " << filePath << std::endl;
     while (in.get(ch)) {
+        std::cerr << ch;
         out << ch;
     }
+    std::cerr << std::endl;
     out.flush();
     out.close();
 }
@@ -111,8 +114,7 @@ void IO_TEST::clearTestOutput() {
 }
 
 std::string IO_TEST::getTestOutput() {
-//    flush();
-    fflush(nullptr);
+    flush();
     return file2string(OUT_STREAM_FILE);
 }
 

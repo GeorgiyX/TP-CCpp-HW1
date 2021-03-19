@@ -1,30 +1,30 @@
- 3421126067 374 country_1
- 787846414 951 country_2
- 3348747335 732 country_3
- 2563451924 599 country_4
- 1914837113 156 country_5
- 429389014 156 country_6
- 1972458954 58 country_7
- 1433267572 867 country_8
- 613608295 601 country_9
- 2795544706 708 country_10
- 242285876 20 country_11
- 3100961111 970 country_12
- 4031053213 833 country_13
- 3344769 212 country_14
- 0 0 country_15
- 2652062880 183 country_16
- 2627030329 304 country_17
- 30349564 525 country_18
- 99052376 432 country_19
- 2253890010 291 country_20
- 4.4 -100 country_21
- 200427519 139 country_22
- 4182248123 292 country_23
- 999745294 366 country_24
- 389151677 456 country_25
- 2655947709 785 country_26
- 1642661739 199 country_27
- 4222944499 514 country_28
- 2004731384 593 country_29
- 3693415908 46 country_30
+543 136 country_name_0
+467 1957 country_name_1
+452 3385 country_name_2
+710 1646 country_name_3
+887 2526 country_name_4
+283 0 country_name_5
+538 2172 country_name_6
+383 913 country_name_7
+27 962 country_name_8
+string 3814 country_name_9
+924 2584 country_name_10
+571 72 country_name_11
+168 3985 country_name_12
+64 2941 country_name_13
+845 2888 country_name_14
+694 1642 country_name_15
+495 816 country_name_16
+551 3849 country_name_17
+386 898 country_name_18
+199 192 country_name_19
+730 3536 country_name_20
+480 3557 country_name_21
+101 3852 country_name_22
+281 2445 country_name_23
+833 3944 country_name_24
+150 1613 country_name_25
+274 628 country_name_26
+547 2350 country_name_27
+82 1539 country_name_28
+142 1176 country_name_29

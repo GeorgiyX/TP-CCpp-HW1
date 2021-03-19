@@ -8,20 +8,21 @@ extern const std::string IN_STREAM_FILE;
 
 class IO_TEST : public testing::Test {
 public:
+
     /**
      * Redirects the stream to the file.
      * @param file - the name of the file to which the current stream will be redirected.
      * @param stream - redirected stream.
      * @return original descriptor of the redirected stream.
      */
-    int switchStreamToFile(const std::string &file, FILE *stream, fpos_t &pos);
+    int switchStreamToFile(const std::string &file, FILE *stream);
 
     /**
      * Binds the stream to the passed descriptor
      * @param originalDescriptor
      * @param stream
      */
-    void switchBackStream(int originalDescriptor, FILE *stream, fpos_t &pos);
+    void switchBackStream(int originalDescriptor, FILE *stream);
     void flush();
     std::string getTestOutput();
     /**
@@ -39,8 +40,6 @@ protected:
 private:
     int _originalOutDescriptor = -1;
     int _originalInDescriptor = -1;
-    fpos_t posOut;
-    fpos_t posIn;
 };
 
 struct TestConfig {
