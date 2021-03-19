@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include "io_list_operations.h"
 
-/* Number of parameters in the country_node structure */
-const int PARAMETERS_COUNT = 3;
+/* Number of parameters to read in the country_node structure */
+const int PARAMETERS_TO_READ_COUNT = 3;
 
 country_node *read_country_node() {
     country_node *node = create_node();
@@ -10,7 +10,7 @@ country_node *read_country_node() {
         return NULL;
     }
     if (scanf("%zd %zd %ms", &node->data.square, &node->data.population, &node->data.country_name)
-        != PARAMETERS_COUNT || !node->data.square || !node->data.population) {
+        != PARAMETERS_TO_READ_COUNT || !node->data.square || !node->data.population) {
         free_node(node);
         return NULL;
     }
