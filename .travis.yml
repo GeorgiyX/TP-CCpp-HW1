@@ -26,5 +26,6 @@ script:
   - cmake --build .
   - valgrind --tool=memcheck ./TP-HW1 < $CWD/project/testing/data/case1/in.txt
   - cd ./project/testing
+  - touch custom_in.txt
   - valgrind --tool=memcheck ./TP-TESTING-HW1 $CWD/project/testing/data 55
   - bash <(curl -s https://codecov.io/bash)
