@@ -18,7 +18,7 @@ country_node *read_country_node() {
     return node;
 }
 
-void print_list(country_node *head) {
+void print_list(const country_node *head) {
     while (head) {
         if (head->data.country_name) {
             printf("%zd %zd %.2f %s\n", head->data.square, head->data.population,

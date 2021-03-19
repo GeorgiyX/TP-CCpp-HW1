@@ -17,8 +17,8 @@ std::string file2string(const std::string &path) {
 
 void IO_TEST::SetUp() {
     Test::SetUp();
-    _originalOutDescriptor = switchStreamToFile(OUT_STREAM_FILE, stdout);
-    _originalInDescriptor = switchStreamToFile(IN_STREAM_FILE, stdin);
+    _originalOutDescriptor = switchStreamToFile(OUT_STREAM_FILE, stdout, "w");
+    _originalInDescriptor = switchStreamToFile(IN_STREAM_FILE, stdin, "r");
 }
 
 void IO_TEST::TearDown() {
@@ -27,7 +27,7 @@ void IO_TEST::TearDown() {
     switchBackStream(_originalInDescriptor, stdin);
 }
 
-int IO_TEST::switchStreamToFile(const std::string &file, FILE *stream) {
+int IO_TEST::switchStreamToFile(const std::string &file, FILE *stream, const std::string &mode) {
     fflush(stream);
     /* Get file descriptor, associated with original stdout */
     int currentStreamDescriptor = fileno(stream);
@@ -40,7 +40,7 @@ int IO_TEST::switchStreamToFile(const std::string &file, FILE *stream) {
         throw std::runtime_error("dup");
     }
     /* Close original stdout, open custom stream and associate stream with it: */
-    FILE *filePtr = freopen(file.c_str(), "w", stream);
+    FILE *filePtr = freopen(file.c_str(), mode.c_str(), stream);
     if (!filePtr) {
         perror("freopen");
         if (close(originalDescriptor)) {
@@ -79,26 +79,20 @@ void IO_TEST::flush() {
 }
 
 void IO_TEST::setTestInput(const std::string &filePath) {
-    flush();
-    if (fseek(stdin, 0, SEEK_SET)) {
-        throw std::runtime_error("fseek");
-    }
-
+    switchBackStream(_originalInDescriptor, stdin);
     std::ifstream in(filePath);
-    std::fstream out(OUT_STREAM_FILE, std::ios::trunc | std::ios::out);
+    std::fstream out(IN_STREAM_FILE, std::ios::trunc | std::ios::out);
     if (!in || !out) {
-        perror("runtime_error(\"can't open file\")");
         throw  std::runtime_error("can't open file");
     }
     char ch = 0;
-    std::cerr << "Read file: " << filePath << std::endl;
     while (in.get(ch)) {
-        std::cerr << ch;
         out << ch;
     }
     std::cerr << std::endl;
     out.flush();
     out.close();
+    _originalInDescriptor = switchStreamToFile(IN_STREAM_FILE, stdin, "r");
 }
 
 void IO_TEST::clearTestOutput() {

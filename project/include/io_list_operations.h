@@ -14,7 +14,7 @@ country_node *read_country_node();
  * "error_country_name" will be printed instead.
  * @param head - pointer to the first item in the list. If it is null, then the function does nothing.
  */
-void print_list(country_node *head);
+void print_list(const country_node *head);
 
 /**
  * Generates an ordered list of countries based on data from stdin

@@ -15,7 +15,7 @@ public:
      * @param stream - redirected stream.
      * @return original descriptor of the redirected stream.
      */
-    int switchStreamToFile(const std::string &file, FILE *stream);
+    int switchStreamToFile(const std::string &file, FILE *stream, const std::string &mode);
 
     /**
      * Binds the stream to the passed descriptor

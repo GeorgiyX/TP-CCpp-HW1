@@ -24,9 +24,6 @@ TEST_F(IO_TEST, COMPLEX_TEST) {
     country_node *head = nullptr;
     for (auto &entity : fs::directory_iterator(TestConfig::testDataPath)) {
         setTestInput(entity / "in.txt");
-        std::cerr << "FILE INPUT:" << std::endl;
-        std::cerr << file2string(IN_STREAM_FILE) << std::endl;
-        std::cerr << "FILE INPUT" << std::endl;
         errno = 0;
         head = get_ordered_list();
         ASSERT_TRUE(!head == (errno == ENOMEM));
