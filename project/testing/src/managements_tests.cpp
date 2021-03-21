@@ -75,7 +75,7 @@ TEST(MANAGEMENT_TEST, INSERT_NODE_2) {
     for (auto &node : nodes) {
         node.data.population = distrPopulation(gen);
         node.data.square = distrSquare(gen);
-        node.data.density = ((double)node.data.population) / node.data.square;
+        node.data.density = static_cast<double>(node.data.population) / node.data.square;
         ASSERT_EQ(insert_node(&head, &node), 0);
     }
     ASSERT_TRUE(head);
