@@ -47,6 +47,6 @@ void free_list(country_node *head);
  * @param rhs
  * @return 0, if lhs and rhs are almost equal or lhs > rhs. Otherwise, 1
  */
-int isLess(const double lhs, const double rhs);
+int is_less(const double lhs, const double rhs);
 
 #endif  // TP_CCPP_HW1_PROJECT_INCLUDE_LIST_MANAGEMENT_H_
